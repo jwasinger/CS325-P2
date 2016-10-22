@@ -10,27 +10,28 @@ Otherwise, for each value i < k,
 	 2. Find the minimum number of coins needed to make K - i cents
 Choose the i that minimizes the sum of 1 and 2
 
-m = total coins to
 A = amount to make
 V = list of denominations
-C = list of coins for denominations
 '''
 
 '''
 Work in progress
 '''
-def divideConquer(A, V):
-    K = A
-    coinMin = [0,0,0,0]
-    #base case
-    if K in V:
-        val = V.indek(K)
-        coinMin[val] = coinMin[val] + 1
-        return sum(coinMin), coinMin
-    coinMin[0] = K
-    for x in [c for c in V if K >= c]:
-        tempSum, tempQty = divideConquer(A,)
+def divideConquer(V,A):
+	coinMin = A
+	listMin = [0] * len(V)
 
+	for i in range(0, len(V)):
+		if (V[i] <= A):
+			listTemp, coinsTemp = divideConquer(V, A - V[i])
+			coinsTemp += 1
+			listTemp[i] += 1				
+
+			if coinMin > coinsTemp:
+				coinMin = coinsTemp
+				listMin = listTemp
+
+	return listMin, coinMin
 
 def readFile(file):
 	arr = []
@@ -38,8 +39,6 @@ def readFile(file):
 		line = f.readline().split()
 		for x in line:
 			line = line.replace(']','').replace('[','').split(',')
-		#for i in line.split():
-		#	arr.append(int(i))
 	return line
 
 def writeFile(arr):
@@ -48,6 +47,8 @@ def writeFile(arr):
 def main():
     A = 75
     V = [1, 5, 10, 25, 50]
-    divideConquer(A,V)
+    listMin,coinMin = divideConquer(V,A)
+	print listMin
+	print coinMin
 
 if __name__ == "__main__": main()
