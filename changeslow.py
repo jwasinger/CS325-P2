@@ -20,8 +20,10 @@ Work in progress
 def divideConquer(V,A):
 	coinMin = A
 	listMin = [0] * len(V)
+	
+	loop = range(0,len(V))
 
-	for i in range(0, len(V)):
+	for i in loop:
 		if (V[i] <= A):
 			listTemp, coinsTemp = divideConquer(V, A - V[i])
 			coinsTemp += 1
