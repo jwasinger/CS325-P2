@@ -4,32 +4,40 @@ import os
 '''
 Divide and Conquer Coin Change Algorithm
 
-To make change for A cents, start by letting K = A.
-If there is a K-cent coin, then that one coin is the minimum.
-Otherwise, for each value i < k,
-     1. Find the minimum number of coins needed to make i cents
-	 2. Find the minimum number of coins needed to make K - i cents
-Choose the i that minimizes the sum of 1 and 2
+Let MC(k) represent the minimum number of coins required
+to make change of amount K and then the options are:
+
+    -Select 1st coin (value = v1). Now smaller problem is minimum
+	number of coins required to make change of amount(k-v1)
+	so call MC(k-v1)
+	-Select 2nd coin (value = v1). Now smaller problem is minimum
+	number of coins require to make change of amount (k-v2)
+	so call MC(k-v2)
+	-Likewise up to n
+	-Select nth coin (value=vn). Now smaller problem is minimum number 
+	of coins required to make change of amount (k-vn) so call MC(k-vn)
+	
+Select the min from the smaller problems and add 1 because a coin is 
+selected. Smaller problems will be solved recursively.
 
 A = amount to make
 V = list of denominations
-'''
-
-'''
-Work in progress
 '''
 def divideConquer(V,A):
 	coinMin = A
 	listMin = [0] * len(V)
 	
+	#for each denomination in the list
 	loop = range(0,len(V))
 
 	for i in loop:
 		if (V[i] <= A):
 			listTemp, coinsTemp = divideConquer(V, A - V[i])
+			#increment counts
 			coinsTemp += 1
 			listTemp[i] += 1				
 
+			#find min coin
 			if coinMin > coinsTemp:
 				coinMin = coinsTemp
 				listMin = listTemp
@@ -38,13 +46,17 @@ def divideConquer(V,A):
 
 def readFile(file):
 	with open(file) as f:
+		#remove list notation characters
 		lines = f.readline().replace('[','').replace(']','').rstrip('\n').strip(',')
 		lines2 = int(f.readline())
+	#remove commas
 	lines = map(int,lines.split(','))
 	return lines, lines2
 
 def writeFile(listMin,coinMin,file):
+	#find file name and file extension
 	base, ext = os.path.splitext(file)
+	#keep just file name
 	newFile = base + "change.txt"
 	with open(newFile,"w") as f:
 		f.write(str(listMin))
