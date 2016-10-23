@@ -37,19 +37,24 @@ def divideConquer(V,A):
 
 def readFile(file):
 	arr = []
-	with open(file, 'r') as f:
-		line = f.readline().split()
-		for x in line:
-			line = line.replace(']','').replace('[','').split(',')
-	return line
+	with open(file) as f:
+		lines = f.readline().replace('[','').replace(']','').rstrip('\n').strip(',')
+		lines2 = int(f.readline())
+	lines = map(int,lines.split(','))
+	return lines, lines2
 
-def writeFile(arr):
-	x = []
+def writeFile(listMin,coinMin,file):
+	newFile = file + "change.txt"
+	with open(newFile,"w") as f:
+		f.write(str(listMin))
+		f.write('\n')
+		f.write(str(coinMin))
 
 def main():
-    A = 75
-    V = [1, 5, 10, 25, 50]
-    listMin,coinMin = divideConquer(V,A)
+	file = raw_input("Enter a file name: ")
+	V,A = readFile(file)
+	listMin,coinMin = divideConquer(V,A)
+	writeFile(listMin,coinMin,file)
 	print listMin
 	print coinMin
 
