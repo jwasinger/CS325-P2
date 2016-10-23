@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 '''
 Divide and Conquer Coin Change Algorithm
 
@@ -36,6 +37,7 @@ def divideConquer(V,A):
 	return listMin, coinMin
 
 def readFile(file):
+	arr = []
 	with open(file) as f:
 		lines = f.readline().replace('[','').replace(']','').rstrip('\n').strip(',')
 		lines2 = int(f.readline())
@@ -43,7 +45,8 @@ def readFile(file):
 	return lines, lines2
 
 def writeFile(listMin,coinMin,file):
-	newFile = file + "change.txt"
+	base, ext = os.path.splitext(file)
+	newFile = base + "change.txt"
 	with open(newFile,"w") as f:
 		f.write(str(listMin))
 		f.write('\n')
