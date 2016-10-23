@@ -37,7 +37,6 @@ def divideConquer(V,A):
 	return listMin, coinMin
 
 def readFile(file):
-	arr = []
 	with open(file) as f:
 		lines = f.readline().replace('[','').replace(']','').rstrip('\n').strip(',')
 		lines2 = int(f.readline())
@@ -53,11 +52,11 @@ def writeFile(listMin,coinMin,file):
 		f.write(str(coinMin))
 
 def main():
-	file = raw_input("Enter a file name: ")
-	V,A = readFile(file)
-	listMin,coinMin = divideConquer(V,A)
-	writeFile(listMin,coinMin,file)
-	print listMin
-	print coinMin
+		file = raw_input("Enter a file name: ")
+		V,A = readFile(file)
+		listMin,coinMin = divideConquer(V,A)
+		writeFile(listMin,coinMin,file)
+		print listMin
+		print coinMin
 
 if __name__ == "__main__": main()
