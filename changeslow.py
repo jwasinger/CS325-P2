@@ -36,7 +36,6 @@ def divideConquer(V,A):
 	return listMin, coinMin
 
 def readFile(file):
-	arr = []
 	with open(file) as f:
 		lines = f.readline().replace('[','').replace(']','').rstrip('\n').strip(',')
 		lines2 = int(f.readline())
