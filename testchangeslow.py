@@ -58,7 +58,7 @@ def readFile(file):
 def main():
 	timeArr = []
 	sum = 0
-	file = raw_input("Enter a file name: ")
+	file = "Coin1.txt"
 	V,A = readFile(file)
 	for x in range(10):
 		start = time.time()
