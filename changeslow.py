@@ -24,6 +24,7 @@ A = amount to make
 V = list of denominations
 '''
 def divideConquer(V,A):
+	name = "Divide & Conquer"
 	coinMin = A
 	listMin = [0] * len(V)
 	
@@ -32,7 +33,7 @@ def divideConquer(V,A):
 
 	for i in loop:
 		if (V[i] <= A):
-			listTemp, coinsTemp = divideConquer(V, A - V[i])
+			listTemp, coinsTemp,dummyName = divideConquer(V, A - V[i])
 			#increment counts
 			coinsTemp += 1
 			listTemp[i] += 1				
@@ -42,7 +43,7 @@ def divideConquer(V,A):
 				coinMin = coinsTemp
 				listMin = listTemp
 
-	return listMin, coinMin
+	return listMin, coinMin, name
 
 def readFile(file):
 	with open(file) as f:
@@ -53,12 +54,14 @@ def readFile(file):
 	lines = map(int,lines.split(','))
 	return lines, lines2
 
-def writeFile(listMin,coinMin,file):
+def writeFile(listMin,coinMin,file,name):
 	#find file name and file extension
 	base, ext = os.path.splitext(file)
 	#keep just file name
 	newFile = base + "change.txt"
 	with open(newFile,"w") as f:
+		f.write(name)
+		f.write('\n')
 		f.write(str(listMin))
 		f.write('\n')
 		f.write(str(coinMin))
@@ -66,8 +69,8 @@ def writeFile(listMin,coinMin,file):
 def main():
 		file = raw_input("Enter a file name: ")
 		V,A = readFile(file)
-		listMin,coinMin = divideConquer(V,A)
-		writeFile(listMin,coinMin,file)
+		listMin,coinMin,algName1 = divideConquer(V,A)
+		writeFile(listMin,coinMin,file,algName1)
 		print listMin
 		print coinMin
 
