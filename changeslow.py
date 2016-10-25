@@ -65,6 +65,8 @@ def writeFile(listMin,coinMin,file,name):
 		f.write(str(listMin))
 		f.write('\n')
 		f.write(str(coinMin))
+		f.write('\n')
+		f.write('\n')
 
 def main():
 		file = raw_input("Enter a file name: ")
