@@ -59,7 +59,7 @@ def writeFile(listMin,coinMin,file,name):
 	base, ext = os.path.splitext(file)
 	#keep just file name
 	newFile = base + "change.txt"
-	with open(newFile,"w") as f:
+	with open(newFile,"wa") as f:
 		f.write(name)
 		f.write('\n')
 		f.write(str(listMin))
